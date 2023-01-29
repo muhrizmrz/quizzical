@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  background: #F5F7FB;
+  width:70%;
+  margin:50px 100px 0 100px;
+  padding: 20px;
+  display: grid;
+  place-content: center;
+}
+
