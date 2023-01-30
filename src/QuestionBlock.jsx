@@ -4,7 +4,7 @@ import Question from "./Question";
 
 export default function QuestionBlock() {
   const [questions, setQuestions] = useState([]);
-  const [checkAnswers, setCheckAnswers] = useState(false);
+  const [check, setCheck] = useState(false)
   
 
   useEffect(function () {
@@ -13,13 +13,29 @@ export default function QuestionBlock() {
       .then((data) => setQuestions(data.results));
   }, []);
 
+  function handleClick(){
+    setCheck(!check)
+  } 
+
   const QuestionElements = questions.map((question) => (
     <Question
       data={question}
-      checkAnswers={checkAnswers}
+      check={check}
       key={nanoid()}
     />
   ));
+
+  function checkAnswers(){
+    return () => setState(prev => prev.map(each => {
+      if(each.isSelected){
+        each.answer == correct_answer ? 
+          {...each, color: '#94D7A2'} : {...each, color: '#F8BCBC'}
+      } else {
+        each.answer == correct_answer ? 
+          {...each, color: '#94D7A2'} : {...each, color: 'white'}
+      }
+    }))
+  }
 
   return (
     <>
@@ -28,7 +44,7 @@ export default function QuestionBlock() {
       <div className="grid">
         <button
           className="buttonStyle"
-          onClick={() => setCheckAnswers((prev) => !prev)}
+          onClick={handleClick}
         >
           Check Answers
         </button>
